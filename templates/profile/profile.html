@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+</head>
+<body>
+    <h1>Это мой профиль!</h1>
+    <p>Ваше имя: {{ profile.user.username }}</p>
+    <p>Электронная почта: {{ profile.user.email }}</p>
+
+    <h2>Забронированные туры:</h2>
+    <div class="row">
+        {% for booking in booked_tours %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ booking.tour.destination.name }}</h5>
+                        <p class="card-text">{{ booking.tour.destination.description }}</p>
+                        <p class="card-text"><strong>Start Date:</strong> {{ booking.tour.start_date }}</p>
+                        <p class="card-text"><strong>End Date:</strong> {{ booking.tour.end_date }}</p>
+                        <form method="post" action="{% url 'make_payment' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Оплатить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ tour.destination.name }} Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">{{ tour.destination.name }}</h1>
+                <img src="{{ tour.image.url }}" style="width: 50%;" class="card-img">
+                <p class="card-text">{{ tour.description }}</p>
+                <p class="card-text"><strong>Start Date:</strong> {{ tour.start_date }}</p>
+                <p class="card-text"><strong>End Date:</strong> {{ tour.end_date }}</p>
+                <p class="card-text"><strong>Price:</strong> {{ tour.price }}</p>
+                {% if user.is_authenticated %}
+                    {% if is_booked %}
+                        <button class="btn btn-success" disabled>Забронировано</button>
+                    {% else %}
+                        <form method="post" action="{% url 'book_tour' pk=tour.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Забронировать</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
