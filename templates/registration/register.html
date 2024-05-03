@@ -26,6 +26,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+        <p>Если аккаунт есть, то жмите</p>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-block">Войти</a>
     </form>
 </div>
 
