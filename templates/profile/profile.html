@@ -18,7 +18,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #87CEFA;">
   <div class="container-fluid">
       <img src="https://gas-kvas.com/grafic/uploads/posts/2024-01/gas-kvas-com-p-logotip-turagentstva-na-prozrachnom-fone-3.png" style="width: 7%">
-    <a class="navbar-brand" href="#">Travel Company</a>
+    <a class="navbar-brand" href="{% url 'tour_list' %}">Travel Company</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -68,7 +68,7 @@
                         <p class="card-text">{{ booking.tour.destination.description }}</p>
                         <p class="card-text"><strong>Start Date:</strong> {{ booking.tour.start_date }}</p>
                         <p class="card-text"><strong>End Date:</strong> {{ booking.tour.end_date }}</p>
-                        <form method="post" action="{% url 'make_payment' %}">
+                        <form method="post" action="{% url 'make_payment' pk=booking.tour.pk %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-primary">Оплатить</button>
                         </form>
