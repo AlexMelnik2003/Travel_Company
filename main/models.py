@@ -18,6 +18,7 @@ class Tour(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='tour_detail_imаge/')
 
 
 # Книга для туров

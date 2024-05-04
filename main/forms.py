@@ -12,7 +12,7 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
 
 
-class RegistrationForm(forms.ModelForm):
+class RegistrationForm(UserCreationForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     class Meta:
