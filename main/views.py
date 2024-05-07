@@ -77,20 +77,28 @@ def book_tour(request, pk):
             Book_list.objects.create(user=request.user, tour=tour)
     return redirect('/')
 
-
+@login_required
 def make_payment(request, pk):
+    tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
             payment = form.save(commit=False)
-            payment.book_id = pk
+            payment.user = request.user
+
+            book = Book_list.objects.filter(user=request.user, tour=tour).first()
+            if not book:
+                # Обработка случая, когда бронирование не найдено
+                messages.error(request, "Для этого тура и пользователя бронирование не найдено.")
+                return render(request, 'pay/pay.html', {'form': form, 'tour': tour})
+            payment.book = book
             payment.amount = form.cleaned_data['amount']
             payment.save()
             return redirect('payment_success')
     else:
         form = PaymentForm()
 
-    return render(request, 'pay/pay.html', {'form': form})
+    return render(request, 'pay/pay.html', {'tour': tour, 'form': form})
 
 
 def payment_success(request):

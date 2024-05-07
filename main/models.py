@@ -15,6 +15,7 @@ class Destination(models.Model):
 # поездка
 class Tour(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -33,6 +34,7 @@ class Book_list(models.Model):
 
 # Оплата
 class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.OneToOneField(Book_list, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     card_number = models.CharField(max_length=16)
