@@ -1,11 +1,10 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
+    <title>Контакты</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87CEFA;">
@@ -45,25 +44,40 @@
     </div>
   </div>
 </nav>
-
-<div class="container-fluid mt-5">
-    <h1 class="mb-4">Доступные туры</h1>
-    <div class="row">
-        {% for tour in tours %}
-            <div class="col-md-4 mb-4">
-                <div class="card shadow">
-                    <img src="{{ tour.image.url }}" alt="{{ tour.destination.name }}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ tour.destination.name }}</h5>
-                        <p class="card-text">{{ tour.description }}</p>
-                        <p class="card-text">Цена: {{ tour.price }} сом</p>
-                        <a href="{% url 'tour_detail' pk=tour.pk %}" class="btn btn-primary btn-lg fw-bold">Подробнее</a>
-                    </div>
+    <div class="container text-center" style="margin-left: 13.5%;">
+        <div class="row">
+          <div class="col">
+            <div class="card" style="width: 19rem; margin-top: 60px;">
+                <img src="https://static.tildacdn.com/tild3437-3130-4263-b834-386330633030/maxresdefault.png" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">Инстаграмм</h5>
+                  <p class="card-text">Мы есть в инстаграмме!</p>
+                  <a href="https://www.instagram.com/melnik._.off/" class="btn btn-primary">Перейти</a>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+              </div>
+          </div>
+          <div class="col">
+            <div class="card" style="width: 18rem; margin-top: 60px;">
+                <img src="https://thumbs.dreamstime.com/b/basic-rgb-134796916.jpg" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">Ватсап</h5>
+                  <p class="card-text">По всем вопросам звоните нам!</p>
+                  <a href="https://wa.me/996552483045" class="btn btn-primary">Перейти</a>
+                </div>
+              </div>
+          </div>
+          <div class="col">
+            <div class="card" style="width: 18rem; margin-top: 60px;">
+                <img src="https://pluspng.com/img-png/telegram-logo-png-logos-telegram-transparent-amp-png-clipart-free-img-yawd-1600x1600.png" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">Телеграмм</h5>
+                  <p class="card-text">Можете написать на телеграмм!</p>
+                  <a href="https://t.me/@m3lnikoff" class="btn btn-primary">Перейти</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

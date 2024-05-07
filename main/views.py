@@ -26,6 +26,14 @@ def tour_detail(request, pk):
     return render(request, 'main/tour_detail.html', {'tour': tour, 'is_booked': is_booked})
 
 
+def contact(request):
+    return render(request, 'main/contact.html')
+
+
+def about_us(request):
+    return render(request, 'main/about_us.html')
+
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
