@@ -6,10 +6,10 @@
 </head>
 <body>
     <h1>Оплата</h1>
-    <form method="post" action="{% url 'make_payment' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Оплатить</button>
-    </form>
+    <form method="post" action="{% url 'make_payment' pk=tour.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Оплатить</button>
+</form>
 </body>
 </html>

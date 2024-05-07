@@ -74,12 +74,10 @@ def make_payment(request, pk):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
-            payment = Payment.objects.create(
-                book_id=pk,
-                card_number=form.cleaned_data['card_number'],
-                expiration_date=form.cleaned_data['expiration_date'],
-                cvv=form.cleaned_data['cvv']
-            )
+            payment = form.save(commit=False)
+            payment.book_id = pk
+            payment.amount = form.cleaned_data['amount']
+            payment.save()
             return redirect('payment_success')
     else:
         form = PaymentForm()
