@@ -74,7 +74,12 @@ def book_tour(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'POST':
         if not Book_list.objects.filter(user=request.user, tour=tour).exists():
-            Book_list.objects.create(user=request.user, tour=tour)
+            if tour.available_seats > 0:
+                Book_list.objects.create(user=request.user, tour=tour)
+                tour.available_seats -= 1
+                tour.save()
+            else:
+                messages.error(request, "Извините, все места на этот тур уже забронированы.")
     return redirect('/')
 
 @login_required
