@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django_recaptcha.fields import ReCaptchaField
 
-from .models import Profile, Payment
+from .models import Profile, Payment, Tour
 
 
 class ProfileForm(forms.ModelForm):
@@ -21,11 +21,22 @@ class RegistrationForm(UserCreationForm):
 
 
 class PaymentForm(forms.ModelForm):
-    card_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Введите номер карты'}))
-    expiration_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Месяц / Год'}))
+    card_number = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Введите номер карты'}))
+    expiration_date = forms.DateField(
+        widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Месяц / Год'}))
     cvv = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CVC'}))
     amount = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Сумма'}))
 
     class Meta:
         model = Payment
         fields = ['card_number', 'expiration_date', 'cvv', 'amount']
+
+
+class BookTourForm(forms.ModelForm):
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = Tour
+        fields = ['start_date', 'end_date']
