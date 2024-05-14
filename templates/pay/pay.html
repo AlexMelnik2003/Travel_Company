@@ -37,22 +37,23 @@
                 <div class="panel-body">
                     <form method="post" action="{% url 'make_payment' pk=tour.pk %}" role="form">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="{{ form.card_number.id_for_label }}">Номер карты</label>
-                            {{ form.card_number }}
-                        </div>
-                        <div class="form-group">
-                            <label for="{{ form.expiration_date.id_for_label }}">Срок окончания</label>
-                            {{ form.expiration_date }}
-                        </div>
-                        <div class="form-group">
-                            <label for="{{ form.cvv.id_for_label }}">CVV код</label>
-                            {{ form.cvv }}
-                        </div>
-                        <div class="form-group">
-                            <label for="{{ form.amount.id_for_label }}">Сумма</label>
-                            {{ form.amount }}
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label for="{{ form.card_number.id_for_label }}">Номер карты</label>-->
+<!--                            {{ form.card_number }}-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="{{ form.expiration_date.id_for_label }}">Срок окончания</label>-->
+<!--                            {{ form.expiration_date }}-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="{{ form.cvv.id_for_label }}">CVV код</label>-->
+<!--                            {{ form.cvv }}-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="{{ form.amount.id_for_label }}">Сумма</label>-->
+<!--                            {{ form.amount }}-->
+<!--                        </div>-->
+                        {{ form.as_p }}
                         <button type="submit" class="btn btn-success btn-lg btn-block">Оплатить</button>
                     </form>
                 </div>

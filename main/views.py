@@ -69,34 +69,19 @@ def user_logout(request):
     return render(request, 'main/tour_list.html')
 
 
-# @login_required
-# def book_tour(request, pk):
-#     tour = get_object_or_404(Tour, pk=pk)
-#     if request.method == 'POST':
-#         if not Book_list.objects.filter(user=request.user, tour=tour).exists():
-#             if tour.available_seats > 0:
-#                 Book_list.objects.create(user=request.user, tour=tour)
-#                 tour.available_seats -= 1
-#                 tour.save()
-#             else:
-#                 messages.error(request, "Извините, все места на этот тур уже забронированы.")
-#     return redirect('/')
-
 @login_required
 def book_tour(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'POST':
-        form = BookTourForm(request.POST)
-        if form.is_valid():
-            start_date = form.cleaned_data['start_date']
-            end_date = form.cleaned_data['end_date']
-            book = Book_list.objects.create(user=request.user, tour=tour, start_date=start_date, end_date=end_date)
-            tour.available_seats -= 1
-            tour.save()
-            return redirect('/')
-    else:
-        form = BookTourForm()
-    return render(request, 'book_tour.html', {'form': form})
+        if not Book_list.objects.filter(user=request.user, tour=tour).exists():
+            if tour.available_seats > 0:
+                Book_list.objects.create(user=request.user, tour=tour)
+                tour.available_seats -= 1
+                tour.save()
+            else:
+                messages.error(request, "Извините, все места на этот тур уже забронированы.")
+    return redirect('/')
+
 
 @login_required
 def make_payment(request, pk):

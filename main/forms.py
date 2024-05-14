@@ -34,9 +34,11 @@ class PaymentForm(forms.ModelForm):
 
 
 class BookTourForm(forms.ModelForm):
-    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    data = forms.DateTimeField(
+        widget=forms.DateTimeInput(format="%Y-%m-%d",
+                                   attrs={"type": "data"}),
+        input_formats=["%Y-%m-%d"])
 
     class Meta:
         model = Tour
-        fields = ['start_date', 'end_date']
+        fields = ['data']
