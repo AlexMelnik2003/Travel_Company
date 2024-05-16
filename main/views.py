@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -6,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, PaymentForm
+from .forms import RegistrationForm, PaymentForm, BookTourForm
 from .models import Tour, Profile, Book_list, Payment
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
@@ -69,17 +71,40 @@ def user_logout(request):
     return render(request, 'main/tour_list.html')
 
 
+# @login_required
+# def book_tour(request, pk):
+#     tour = get_object_or_404(Tour, pk=pk)
+#     if request.method == 'POST':
+#         if not Book_list.objects.filter(user=request.user, tour=tour).exists():
+#             if tour.available_seats > 0:
+#                 Book_list.objects.create(user=request.user, tour=tour)
+#                 tour.available_seats -= 1
+#                 tour.save()
+#             else:
+#                 messages.error(request, "Извините, все места на этот тур уже забронированы.")
+#     return redirect('/')
+
+
 @login_required
 def book_tour(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'POST':
-        if not Book_list.objects.filter(user=request.user, tour=tour).exists():
-            if tour.available_seats > 0:
-                Book_list.objects.create(user=request.user, tour=tour)
-                tour.available_seats -= 1
-                tour.save()
+        date_str = request.POST.get('date')  # Получаем выбранную дату из формы
+        if date_str:  # Проверяем, что значение даты не является None
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()  # Преобразуем строку в объект даты
+            if not Book_list.objects.filter(user=request.user, tour=tour, book_date=date).exists():  # Проверяем, не было ли уже бронирования на эту дату
+                if tour.available_seats > 0:
+                    # Создаем объект Book_list и сохраняем его
+                    book = Book_list.objects.create(user=request.user, tour=tour, book_date=date)
+                    tour.available_seats -= 1
+                    tour.save()
+                    book.save()
+                else:
+                    messages.error(request, "Извините, все места на этот тур уже забронированы.")
             else:
-                messages.error(request, "Извините, все места на этот тур уже забронированы.")
+                messages.error(request, "Вы уже забронировали этот тур на выбранную дату.")
+        else:
+            messages.error(request, "Выберите дату для бронирования.")
     return redirect('/')
 
 

@@ -58,7 +58,6 @@
             <img src="{{ tour.image.url }}" style="width: 50%;" class="card-img">
             <p class="card-text">{{ tour.description }}</p>
             <input type="date" name="date" required="" id="id_date">
-            {{ form.as_p }}
             <p class="card-text"><strong>Price:</strong> {{ tour.price }}</p>
             {% if user.is_authenticated %}
             {% if is_booked %}
