@@ -19,13 +19,13 @@ class Tour(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='tour_detail_imаge/')
     available_seats = models.IntegerField(default=50)
-
+    book_data = models.DateField(auto_now_add=True)
 
 # Книга для туров
 class Book_list(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
-    book_data = models.DateField()
+    book_data = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.tour.destination.name}"
