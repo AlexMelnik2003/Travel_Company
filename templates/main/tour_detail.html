@@ -56,7 +56,7 @@
         <div class="card-body">
             <h1 class="card-title">{{ tour.destination.name }}</h1>
             <img src="{{ tour.image.url }}" style="width: 50%;" class="card-img">
-            <p class="card-text">{{ tour.description }}</p>
+            <p class="card-text">{{ tour.destination.description }}</p>
             <input type="date" name="date" required="" id="id_date">
             <p class="card-text"><strong>Price:</strong> {{ tour.price }}</p>
             {% if user.is_authenticated %}
