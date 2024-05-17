@@ -26,6 +26,7 @@ class Book_list(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
     book_data = models.DateField(auto_now_add=True)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user.username} - {self.tour.destination.name}"

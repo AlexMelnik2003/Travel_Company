@@ -68,10 +68,14 @@
                         <p class="card-text">{{ booking.tour.destination.description }}</p>
                         <p class="card-text"><strong>Start Date:</strong> {{ booking.tour.start_date }}</p>
                         <p class="card-text"><strong>End Date:</strong> {{ booking.tour.end_date }}</p>
-                        <form method="post" action="{% url 'make_payment' pk=booking.tour.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Оплатить</button>
-                        </form>
+                        {% if booking.is_paid %}
+                            <span class="badge bg-success">Оплачено</span>
+                        {% else %}
+                            <form method="post" action="{% url 'make_payment' pk=booking.tour.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Оплатить</button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>

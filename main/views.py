@@ -88,25 +88,37 @@ def book_tour(request, pk):
 @login_required
 def make_payment(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
+    is_paid = False
+    book = Book_list.objects.filter(user=request.user, tour=tour).first()
+    if book and book.is_paid:
+        is_paid = True
+
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
-            payment = form.save(commit=False)
-            payment.user = request.user
+            payment, created = Payment.objects.get_or_create(book=book, defaults={'user': request.user,
+                                                                                  'amount': form.cleaned_data[
+                                                                                      'amount']})
+            if not created:
+                payment.amount = form.cleaned_data['amount']
+                payment.save()
 
-            book = Book_list.objects.filter(user=request.user, tour=tour).first()
             if not book:
-                # Обработка случая, когда бронирование не найдено
                 messages.error(request, "Для этого тура и пользователя бронирование не найдено.")
-                return render(request, 'pay/pay.html', {'form': form, 'tour': tour})
-            payment.book = book
-            payment.amount = form.cleaned_data['amount']
-            payment.save()
+                return render(request, 'pay/pay.html', {'form': form, 'tour': tour, 'is_paid': is_paid})
+
+            if book.is_paid:
+                messages.error(request, "Вы уже оплатили этот тур.")
+                return redirect('profile')
+
+            book.is_paid = True
+            book.save()
             return redirect('payment_success')
     else:
         form = PaymentForm()
 
-    return render(request, 'pay/pay.html', {'tour': tour, 'form': form})
+    return render(request, 'pay/pay.html', {'tour': tour, 'form': form, 'is_paid': is_paid})
+
 
 
 def payment_success(request):
