@@ -4,34 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .form-container {
-            width: 400px;
-        }
-    </style>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="form-container">
-    <h2 class="text-center mb-4">Регистрация</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
-        <p>Если аккаунт есть, то жмите</p>
-        <a href="{% url 'login' %}" class="btn btn-primary btn-block">Войти</a>
-    </form>
+<div class="py-20 h-screen bg-gray-300 px-2">
+    <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-md">
+        <div class="md:flex">
+            <div class="w-full p-3 px-6 py-10">
+
+                <div class="text-center">
+                    <span class="text-xl text-gray-700">Registration Form</span>
+                </div>
+
+                <div class="mt-3 relative">
+                    <span class="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">First name</span>
+                    <input type="text"
+                           class="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-red-600">
+                </div>
+
+                <div class="mt-4 relative">
+                    <span class="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">Last name</span>
+                    <input type="text"
+                           class="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-red-600">
+                </div>
+
+
+                <div class="mt-4 relative">
+                    <span class="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">Email</span>
+                    <input type="text"
+                           class="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-red-600">
+                </div>
+
+                <div class="mt-4 relative">
+                    <span class="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">Password</span>
+                    <input type="text"
+                           class="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-red-600">
+                </div>
+
+                <div class="mt-4">
+
+                    <button class="h-12 w-full bg-red-600 text-white rounded hover:bg-red-700">Click to proceed <i
+                            class="fa fa-long-arrow-right"></i></button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </div>
 
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 </body>
 </html>

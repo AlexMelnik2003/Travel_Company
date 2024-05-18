@@ -66,8 +66,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ booking.tour.destination.name }}</h5>
                         <p class="card-text">{{ booking.tour.destination.description }}</p>
-                        <p class="card-text"><strong>Start Date:</strong> {{ booking.tour.start_date }}</p>
-                        <p class="card-text"><strong>End Date:</strong> {{ booking.tour.end_date }}</p>
+                        <p class="card-text"><strong>Start Date:</strong> {{ booking.tour.book_date }}</p>
                         {% if booking.is_paid %}
                             <span class="badge bg-success">Оплачено</span>
                         {% else %}

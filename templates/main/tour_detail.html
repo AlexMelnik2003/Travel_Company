@@ -57,7 +57,6 @@
             <h1 class="card-title">{{ tour.destination.name }}</h1>
             <img src="{{ tour.image.url }}" style="width: 50%;" class="card-img">
             <p class="card-text">{{ tour.destination.description }}</p>
-            <input type="date" name="date" required="" id="id_date">
             <p class="card-text"><strong>Price:</strong> {{ tour.price }}</p>
             {% if user.is_authenticated %}
             {% if is_booked %}
@@ -65,6 +64,7 @@
             {% else %}
             <form method="post" action="{% url 'book_tour' pk=tour.pk %}">
                 {% csrf_token %}
+                <input type="date" name="date" required="" id="id_date">
                 <button type="submit" class="btn btn-primary">Забронировать</button>
             </form>
             <p>Осталось мест: {{ tour.available_seats }}
@@ -76,6 +76,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

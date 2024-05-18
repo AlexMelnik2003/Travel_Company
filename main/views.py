@@ -75,13 +75,28 @@ def user_logout(request):
 def book_tour(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'POST':
-        if not Book_list.objects.filter(user=request.user, tour=tour).exists():
-            if tour.available_seats > 0:
-                Book_list.objects.create(user=request.user, tour=tour)
-                tour.available_seats -= 1
-                tour.save()
+        book_date = request.POST.get('date', None)
+        if book_date:
+            try:
+                # Преобразование строки даты в объект datetime
+                book_date = datetime.strptime(book_date, '%Y-%m-%d')
+            except ValueError:
+                messages.error(request, "Неправильный формат даты.")
+                return redirect(request.path)
+
+            if not Book_list.objects.filter(user=request.user, tour=tour, book_data=book_date).exists():
+                if tour.available_seats > 0:
+                    Book_list.objects.create(user=request.user, tour=tour, book_data=book_date)
+                    tour.available_seats -= 1
+                    tour.save()
+                    messages.success(request,
+                                     "Тур успешно забронирован на дату: {}".format(book_date.strftime('%Y-%m-%d')))
+                else:
+                    messages.error(request, "Извините, все места на этот тур уже забронированы.")
             else:
-                messages.error(request, "Извините, все места на этот тур уже забронированы.")
+                messages.error(request, "Вы уже забронировали этот тур на эту дату.")
+        else:
+            messages.error(request, "Необходимо указать дату.")
     return redirect('/')
 
 
@@ -96,12 +111,12 @@ def make_payment(request, pk):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
-            payment, created = Payment.objects.get_or_create(book=book, defaults={'user': request.user,
-                                                                                  'amount': form.cleaned_data[
-                                                                                      'amount']})
-            if not created:
-                payment.amount = form.cleaned_data['amount']
-                payment.save()
+            # payment, created = Payment.objects.get_or_create(book=book, defaults={'user': request.user,
+            #                                                                       'amount': form.cleaned_data[
+            #                                                                           'amount']})
+            # if not created:
+            #     payment.amount = form.cleaned_data['amount']
+            #     payment.save()
 
             if not book:
                 messages.error(request, "Для этого тура и пользователя бронирование не найдено.")
@@ -118,7 +133,6 @@ def make_payment(request, pk):
         form = PaymentForm()
 
     return render(request, 'pay/pay.html', {'tour': tour, 'form': form, 'is_paid': is_paid})
-
 
 
 def payment_success(request):

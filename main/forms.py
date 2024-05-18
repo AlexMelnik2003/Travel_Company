@@ -13,7 +13,13 @@ class ProfileForm(forms.ModelForm):
 
 
 class RegistrationForm(UserCreationForm):
-
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
     class Meta:
         model = User
         fields = ['username', 'email']
@@ -25,11 +31,10 @@ class PaymentForm(forms.ModelForm):
     expiration_date = forms.IntegerField(
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Год'}))
     cvv = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CVC'}))
-    amount = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Сумма'}))
 
     class Meta:
         model = Payment
-        fields = ['card_number', 'expiration_date', 'cvv', 'amount']
+        fields = ['card_number', 'expiration_date', 'cvv']
 
 
 class BookTourForm(forms.ModelForm):
