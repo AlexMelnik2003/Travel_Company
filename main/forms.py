@@ -14,15 +14,17 @@ class ProfileForm(forms.ModelForm):
 
 class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'absolute p-1 bottom-8 ml-2 bg-white text-gray-400'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['first_name', 'last_name', 'email', 'password']
 
 
 class PaymentForm(forms.ModelForm):
