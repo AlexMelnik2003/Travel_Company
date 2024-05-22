@@ -24,15 +24,13 @@
     <div class="page-header text-center">
         <h1>Детали оплаты</h1>
         <div class="inlineimage text-center">
-            <img class="img-responsive images" src="https://klike.net/uploads/posts/2023-03/1679029757_3-15.png">
+            <img class="img-responsive images" src="https://klike.net/uploads/posts/2023-03/1679029757_3-15.png" style="display: block; margin: 0 auto;">
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="text-center">Оплата тура</h3>
-                </div>
+
                 <div class="panel-body">
                     <form method="post" action="{% url 'make_payment' pk=tour.pk %}" role="form">
                         {% csrf_token %}

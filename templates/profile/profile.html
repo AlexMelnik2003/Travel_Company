@@ -55,8 +55,9 @@
 
 <div class="container mt-5">
     <h1>Это мой профиль!</h1>
-    <p>Ваше имя: {{ profile.user.username }}</p>
-    <p>Электронная почта: {{ profile.user.email }}</p>
+    <p>Ваш никнейм: {{ profile.user.username }}</p>
+    <p>Имя: {{ profile.user.first_name }}</p>
+    <p>Фамилия: {{ profile.user.last_name }}</p>
 
     <h2>Забронированные туры:</h2>
     <div class="row">
