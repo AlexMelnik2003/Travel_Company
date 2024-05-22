@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ booking.tour.destination.name }}</h5>
                         <p class="card-text">{{ booking.tour.destination.description }}</p>
-                        <p class="card-text"><strong>Start Date:</strong> {{ booking.tour.book_date }}</p>
+                        <p class="card-text"><strong>Дата бронирования:</strong> {{ booking.book_data|date:"d.m.Y" }}</p>
                         {% if booking.is_paid %}
                             <span class="badge bg-success">Оплачено</span>
                         {% else %}

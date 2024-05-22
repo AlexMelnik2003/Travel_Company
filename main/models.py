@@ -25,7 +25,7 @@ class Tour(models.Model):
 class Book_list(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
-    book_data = models.DateField(auto_now_add=True)
+    book_data = models.DateField()
     is_paid = models.BooleanField(default=False)
 
     def __str__(self):
@@ -45,5 +45,4 @@ class Payment(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(max_length=100, blank=True)
+
