@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -38,7 +39,7 @@ class Payment(models.Model):
     book = models.OneToOneField(Book_list, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     card_number = models.CharField(max_length=16)
-    expiration_date = models.CharField(max_length=5)
+    expiration_date = models.IntegerField(max_length=5,validators=[MinValueValidator(2024)])
     cvv = models.CharField(max_length=3)
     payment_date = models.DateTimeField(auto_now_add=True)
 
