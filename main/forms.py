@@ -12,7 +12,8 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
 
 
-class RegistrationForm(UserCreationForm):  # captcha = ReCaptchaField()
+class RegistrationForm(UserCreationForm):
+    captcha = ReCaptchaField()
     username = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control',
                'placeholder': 'Username'}
