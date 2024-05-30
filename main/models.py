@@ -22,6 +22,12 @@ class Tour(models.Model):
     available_seats = models.IntegerField(default=50)
     book_data = models.DateField(auto_now_add=True)
 
+
+class TourImage(models.Model):
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='tour_detail_imаge/')
+
+
 # Книга для туров
 class Book_list(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -39,11 +45,10 @@ class Payment(models.Model):
     book = models.OneToOneField(Book_list, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     card_number = models.CharField(max_length=16, validators=[MinLengthValidator(16)])
-    expiration_date = models.IntegerField(max_length=5,validators=[MinValueValidator(2024)])
+    expiration_date = models.IntegerField(max_length=5, validators=[MinValueValidator(2024)])
     cvv = models.CharField(max_length=3)
     payment_date = models.DateTimeField(auto_now_add=True)
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-

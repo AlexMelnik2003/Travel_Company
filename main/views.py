@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from .forms import RegistrationForm, PaymentForm, BookTourForm
-from .models import Tour, Profile, Book_list, Payment
+from .models import Tour, Profile, Book_list, Payment, TourImage
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 
@@ -25,7 +25,8 @@ def tour_detail(request, pk):
     is_booked = False
     if request.user.is_authenticated:
         is_booked = Book_list.objects.filter(user=request.user, tour=tour).exists()
-    return render(request, 'main/tour_detail.html', {'tour': tour, 'is_booked': is_booked})
+    tour_images = TourImage.objects.filter(tour=tour)
+    return render(request, 'main/tour_detail.html', {'tour': tour, 'is_booked': is_booked, 'tour_images': tour_images})
 
 
 def contact(request):

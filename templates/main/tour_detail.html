@@ -56,7 +56,13 @@
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">{{ tour.destination.name }}</h1>
-            <img src="{{ tour.image.url }}" style="width: 50%;" class="card-img">
+            <div class="row">
+                {% for image in tour.images.all %}
+                <div class="col-md-4">
+                    <img src="{{ image.image.url }}" class="img-fluid" alt="Tour image">
+                </div>
+                {% endfor %}
+            </div>
             <p class="card-text">{{ tour.destination.description }}</p>
             <p class="card-text"><strong>Price:</strong> {{ tour.price }}</p>
             {% if user.is_authenticated %}
@@ -68,12 +74,12 @@
                 <input type="date" name="date" required="" id="id_date">
                 <button type="submit" class="btn btn-primary">Забронировать</button>
             </form>
-            <p>Осталось мест: {{ tour.available_seats }}
-                {% endif %}
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
-                <a href="{% url 'register' %}" class="btn btn-primary">Зарегистрироваться</a>
-                {% endif %}
+            <p>Осталось мест: {{ tour.available_seats }}</p>
+            {% endif %}
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">Зарегистрироваться</a>
+            {% endif %}
         </div>
     </div>
 </div>
