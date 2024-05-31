@@ -14,6 +14,10 @@ from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 
 
+def index(request):
+    return render(request, 'main/main.html')
+
+
 def tour_list(request):
     tours = Tour.objects.all()
     return render(request, 'main/tour_list.html', {'tours': tours})
