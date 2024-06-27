@@ -24,7 +24,13 @@ SECRET_KEY = 'django-insecure-c6@ov1wp64()d0x_=fpd7xg51nz9=vhfc69@jg2@jcs&@olj=7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['tour-alexz.student-project-it-academy.tw1.ru',
+                 'www.tour-alexz.student-project-it-academy.tw1.ru']
+
+CSRF_TRUSTED_ORIGINS = ['https://tour-alexz.student-project-it-academy.tw1.ru',
+                        'https://www.https://tour-alexz.student-project-it-academy.tw1.ru ']
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Application definition
 
@@ -125,7 +131,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 RECAPTCHA_PUBLIC_KEY = '6Ld6wucpAAAAAFfYz4akbY-ce6GDuudNyd_PSc9f'
 RECAPTCHA_PRIVATE_KEY = '6Ld6wucpAAAAABvZhR5sRy1-xAyoWLpV8iYfqO_B'
-
 
 LOGIN_REDIRECT_URL = 'tour_list'
 LOGOUT_REDIRECT_URL = 'tour_list'
