@@ -28,7 +28,7 @@ ALLOWED_HOSTS = ['tour-alexz.student-project-it-academy.tw1.ru',
                  'www.tour-alexz.student-project-it-academy.tw1.ru']
 
 CSRF_TRUSTED_ORIGINS = ['https://tour-alexz.student-project-it-academy.tw1.ru',
-                        'https://www.https://tour-alexz.student-project-it-academy.tw1.ru ']
+                        'https://www.https://tour-alexz.student-project-it-academy.tw1.ru']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
