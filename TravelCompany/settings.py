@@ -24,8 +24,7 @@ SECRET_KEY = 'django-insecure-c6@ov1wp64()d0x_=fpd7xg51nz9=vhfc69@jg2@jcs&@olj=7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tour-alexz.student-project-it-academy.tw1.ru',
-                 'www.tour-alexz.student-project-it-academy.tw1.ru']
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = ['https://tour-alexz.student-project-it-academy.tw1.ru',
                         'https://www.https://tour-alexz.student-project-it-academy.tw1.ru']

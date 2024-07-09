@@ -102,7 +102,7 @@ def book_tour(request, pk):
                 messages.error(request, "Вы уже забронировали этот тур на эту дату.")
         else:
             messages.error(request, "Необходимо указать дату.")
-    return redirect('/')
+    return redirect('tour_list')
 
 
 @login_required
