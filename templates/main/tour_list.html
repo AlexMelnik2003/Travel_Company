@@ -6,66 +6,83 @@
     <link rel="icon" type="image/png" href="{% static 'logo/лого.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+    body{background: rgb(58,121,9);
+background: radial-gradient(circle, rgba(58,121,9,1) 35%, rgba(10,200,5,0) 100%);}
+        .card-img-top {
+    height: 300px; /* Задаем фиксированную высоту для изображения */
+    object-fit: cover; /* Позволяет изображению заполнить содержимое, сохраняя при этом свое соотношение сторон */
+}
+
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87CEFA;">
-  <div class="container-fluid">
-      <img src="https://gas-kvas.com/grafic/uploads/posts/2024-01/gas-kvas-com-p-logotip-turagentstva-na-prozrachnom-fone-3.png" style="width: 7%">
-    <a class="navbar-brand" href="{% url 'main' %}">Travel Company</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'about_us' %}">О нас</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'contact' %}">Контакты</a>
-        </li>
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'profile' %}">Профиль</a>
-            </li>
-            <li class="nav-item">
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold">Выйти</button>
-                </form>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'login' %}">Войти</a>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'register' %}">Зарегистрироваться</a>
-            </li>
-        {% endif %}
-      </ul>
+    <div class="container-fluid">
+        <img src="https://gas-kvas.com/grafic/uploads/posts/2024-01/gas-kvas-com-p-logotip-turagentstva-na-prozrachnom-fone-3.png"
+             style="width: 7%">
+        <a class="navbar-brand" href="{% url 'main' %}">Travel Company</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'about_us' %}">О
+                        нас</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'contact' %}">Контакты</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold"
+                       href="{% url 'profile' %}">Профиль</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold">Выйти
+                        </button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'login' %}">Войти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'register' %}">Зарегистрироваться</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 <div class="container-fluid mt-5">
     <h1 class="mb-4">Доступные туры</h1>
     <div class="row">
         {% for tour in tours %}
-            <div class="col-md-4 mb-4">
-                <div class="card shadow">
-                    <img src="{{ tour.image.url }}" alt="{{ tour.destination.name }}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ tour.destination.name }}</h5>
-                        <p class="card-text">{{ tour.description }}</p>
-                        <p class="card-text">Цена: {{ tour.price }} сом</p>
-                        <a href="{% url 'tour_detail' pk=tour.pk %}" class="btn btn-primary btn-lg fw-bold">Подробнее</a>
-                    </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <img src="{{ tour.image.url }}" alt="{{ tour.destination.name }}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tour.destination.name }}</h5>
+                    <p class="card-text">{{ tour.destination.description }}</p>
+                    <p class="card-text">Цена: {{ tour.price }} сом</p>
+                    <a href="{% url 'tour_detail' pk=tour.pk %}" class="btn btn-primary btn-lg fw-bold">Подробнее</a>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
