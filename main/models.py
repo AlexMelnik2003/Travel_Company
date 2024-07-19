@@ -52,3 +52,11 @@ class Payment(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+class Faq(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    questions = models.TextField(max_length=200)
+
+    def __str__(self):
+        return f'{self.questions}'

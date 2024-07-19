@@ -6,71 +6,235 @@
     <link rel="icon" type="image/png" href="{% static 'logo/лого.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О нас</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        #scrollTopBtn {
+            display: none; /* По умолчанию скрываем кнопку */
+            position: fixed; /* Фиксированное положение на странице */
+            bottom: 20px;
+            right: 20px;
+            z-index: 99; /* Устанавливаем высокий z-index, чтобы кнопка оставалась поверх других элементов */
+        }
+
+        .navbar {
+            background-color: transparent;
+            transition: background-color 0.5s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: white !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-banner {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .video-banner video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+        }
+
+        .video-banner .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .video-banner h1, .video-banner p {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .video-banner h1 {
+                font-size: 2rem;
+            }
+
+            .video-banner p {
+                font-size: 1rem;
+            }
+        }
+
+        .card-img-top {
+            height: 300px; /* Задаем фиксированную высоту для изображения */
+            object-fit: cover; /* Позволяет изображению заполнить содержимое, сохраняя при этом свое соотношение сторон */
+        }
+
+        .about-us {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .about-us h2 {
+            margin-bottom: 20px;
+        }
+
+        .about-us p {
+            margin-bottom: 20px;
+        }
+
+        .about-us img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-icons {
+            margin-top: 10px;
+        }
+
+        .footer-icons a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87CEFA;">
-  <div class="container-fluid">
-      <img src="https://gas-kvas.com/grafic/uploads/posts/2024-01/gas-kvas-com-p-logotip-turagentstva-na-prozrachnom-fone-3.png" style="width: 7%">
-    <a class="navbar-brand" href="{% url 'tour_list' %}">Travel Company</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'about_us' %}">О нас</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'contact' %}">Контакты</a>
-        </li>
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'profile' %}">Профиль</a>
-            </li>
-            <li class="nav-item">
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold">Выйти</button>
-                </form>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'login' %}">Войти</a>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'register' %}">Зарегистрироваться</a>
-            </li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-</nav>
-    
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center mb-4">О нас</h2>
-                <p class="lead">Добро пожаловать на сайт Travel Company!</p>
-                <p class="lead">Мы – команда профессионалов, увлечённых своим делом, и наша миссия – делать ваши путешествия незабываемыми. Travel Company – это современная платформа для бронирования туров, созданная для того, чтобы упростить процесс планирования и организации вашего отпуска.</p>
-                
-                <h3 class="mt-5 mb-3">Наша история</h3>
-                <p>Travel Company была основана командой энтузиастов, которые сами обожают путешествовать и знают, что необходимо для идеального отпуска. Мы начали с малого, предлагая туры по самым популярным направлениям, и со временем расширили наш ассортимент до глобальных масштабов. Сегодня Travel Company – это тысячи довольных клиентов и успешные путешествия по всему миру.</p>
-                
-                <h3 class="mt-5 mb-3">Наши ценности</h3>
-                <ul>
-                    <li><strong>Качество:</strong> Мы стремимся предоставлять только лучшие услуги и работать с самыми надёжными партнёрами.</li>
-                    <li><strong>Доступность:</strong> Мы предлагаем туры на любой бюджет, чтобы каждый мог найти что-то по душе.</li>
-                    <li><strong>Открытость:</strong> Мы всегда честны с нашими клиентами и открыты для предложений и обратной связи.</li>
-                </ul>
-                
-                <p class="lead mt-5">Присоединяйтесь к нам и начните своё путешествие мечты с Travel Company! Откройте для себя новые горизонты, найдите новые друзья и создайте воспоминания, которые останутся с вами на всю жизнь. Мы с нетерпением ждём возможности стать частью ваших приключений.</p>
-                
-                <p class="lead mt-5 signature">С наилучшими пожеланиями,<br>Команда Travel Company</p>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+        <img src="https://gas-kvas.com/grafic/uploads/posts/2024-01/gas-kvas-com-p-logotip-turagentstva-na-prozrachnom-fone-3.png"
+             style="width: 7%">
+        <a class="navbar-brand" href="{% url 'tour_list' %}">Tour-Alexz</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'main' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'faq' %}">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'about_us' %}">О
+                        нас</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'contact' %}">Контакты</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold"
+                       href="{% url 'profile' %}">Профиль</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold">Выйти
+                        </button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'login' %}">Войти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'register' %}">Зарегистрироваться</a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4"><br>О нас</h2>
+            <p class="lead">Добро пожаловать на сайт Tour-Alexz!</p>
+            <p class="lead">Мы – команда профессионалов, увлечённых своим делом, и наша миссия – делать ваши путешествия
+                незабываемыми. Tour-Alexz – это современная платформа для бронирования туров, созданная для того,
+                чтобы упростить процесс планирования и организации вашего отпуска.</p>
+
+            <h3 class="mt-5 mb-3">Наша история</h3>
+            <p>Tour-Alexz была основана командой энтузиастов, которые сами обожают путешествовать и знают, что
+                необходимо для идеального отпуска. Мы начали с малого, предлагая туры по самым популярным направлениям,
+                и со временем расширили наш ассортимент до глобальных масштабов. Сегодня Tour-Alexz – это тысячи
+                довольных клиентов и успешные путешествия по всему миру.</p>
+
+            <h3 class="mt-5 mb-3">Наши ценности</h3>
+            <ul>
+                <li><strong>Качество:</strong> Мы стремимся предоставлять только лучшие услуги и работать с самыми
+                    надёжными партнёрами.
+                </li>
+                <li><strong>Доступность:</strong> Мы предлагаем туры на любой бюджет, чтобы каждый мог найти что-то по
+                    душе.
+                </li>
+                <li><strong>Открытость:</strong> Мы всегда честны с нашими клиентами и открыты для предложений и
+                    обратной связи.
+                </li>
+            </ul>
+
+            <p class="lead mt-5">Присоединяйтесь к нам и начните своё путешествие мечты с Tour-Alexz! Откройте для
+                себя новые горизонты, найдите новые друзья и создайте воспоминания, которые останутся с вами на всю
+                жизнь. Мы с нетерпением ждём возможности стать частью ваших приключений.</p>
+
+            <p class="lead mt-5 signature">С наилучшими пожеланиями,<br>Команда Tour-Alexz</p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span>© 2024 Tour-Alexz. Все права защищены.</span>
+        <div class="footer-links mt-3">
+            <a href="{% url 'main' %}" class="btn btn-outline-light btn-sm">Главная</a>
+            <a href="{% url 'about_us' %}" class="btn btn-outline-light btn-sm">О нас</a>
+            <a href="{% url 'tour_list' %}" class="btn btn-outline-light btn-sm">Туры</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-light btn-sm">Контакты</a>
+            <a href="{% url 'faq' %}" class="btn btn-outline-light btn-sm">FAQ</a>
+        </div>
+        <div class="footer-icons mt-3">
+            <p>+996 552 48 30 45</p>
+            <p>alexz.melnik.02@gmail.com</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script>
+    window.addEventListener('scroll', function() {
+        var navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+</script>
 </body>
 </html>

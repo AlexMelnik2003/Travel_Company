@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django_recaptcha.fields import ReCaptchaField
 
-from .models import Profile, Payment, Tour
+
+from .models import Profile, Payment, Tour, Faq
 
 
 class ProfileForm(forms.ModelForm):
@@ -61,3 +62,13 @@ class BookTourForm(forms.ModelForm):
     class Meta:
         model = Tour
         fields = ['data']
+
+
+class FaqForm(forms.ModelForm):
+    class Meta:
+        model = Faq
+        fields = ['questions']
+        widgets = {
+            'questions': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Напишите сюда вопрос или предложение'}),
+        }

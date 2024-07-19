@@ -18,4 +18,6 @@ urlpatterns = [
                   path('tour/<int:pk>/book/', views.book_tour, name='book_tour'),
                   path('make_payment/<int:pk>/', views.make_payment, name='make_payment'),
                   path('payment_success/', views.payment_success, name='payment_success'),
+                  path('faq/', views.faq_view, name='faq'),
+                  path('faq_success/', views.faq_success, name='faq_success'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

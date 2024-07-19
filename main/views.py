@@ -8,14 +8,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, PaymentForm, BookTourForm
+from .forms import RegistrationForm, PaymentForm, BookTourForm, FaqForm
 from .models import Tour, Profile, Book_list, Payment, TourImage
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 
 
 def index(request):
-    return render(request, 'main/main.html')
+    tours = Tour.objects.all()
+    return render(request, 'main/main.html', {'tours': tours})
 
 
 def tour_list(request):
@@ -142,3 +143,19 @@ def make_payment(request, pk):
 
 def payment_success(request):
     return render(request, 'pay/payment_success.html')
+
+
+def faq_view(request):
+    if request.method == 'POST':
+        form = FaqForm(request.POST)
+        if form.is_valid():
+            faq = form.save(commit=False)
+            faq.save()
+            return redirect('faq_success')
+    else:
+        form = FaqForm()
+    return render(request, 'main/faq.html', {'form': form})
+
+
+def faq_success(request):
+    return render(request, 'main/faq_success.html')
